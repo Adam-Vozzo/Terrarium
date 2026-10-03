@@ -20,6 +20,20 @@ npm run build
 
 The build creates `build/Terrarium.html`, a self-contained version that works offline. No server, account, API key, or network is required by the simulation. The modular site optionally loads Google Fonts; the offline bundle uses system fonts.
 
+## GitHub Pages
+
+The repository is ready for GitHub Pages. Enable it once in [Settings → Pages](https://github.com/Adam-Vozzo/Terrarium/settings/pages):
+
+1. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+2. Open **Actions → Deploy Terrarium to GitHub Pages → Run workflow** and run it on `main`. If a run failed before Pages was enabled, rerun it.
+3. Open the website link shown by the successful deployment or by Settings → Pages.
+
+After this setup, every push to `main` checks syntax, runs the simulation tests, and publishes `dist/` automatically. The site needs no server, package installation, repository secret, or custom domain. Relative asset paths support the `/Terrarium/` project URL and custom domains.
+
+For branch publishing instead, choose **Deploy from a branch → main → /(root)** and save. The root entry page opens the game in `dist/`; `.nojekyll` keeps the files static. The Actions option above runs the validation checks before deployment.
+
+Configuration follows [GitHub's Pages workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages). Adding these files does not itself enable Pages in repository settings.
+
 ## Play
 
 - **Observe:** drag to pan, pinch or scroll to zoom, tap creatures and plants to inspect.
