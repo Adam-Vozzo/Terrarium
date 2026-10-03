@@ -1,0 +1,7 @@
+.openai/
+.sites-runtime/
+node_modules/
+build/
+*.log
+.DS_Store
+.env*

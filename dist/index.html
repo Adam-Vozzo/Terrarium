@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+ <meta name="theme-color" content="#111f20"><meta name="description" content="Shape a tiny living world. A touch-friendly pixel ecosystem with curious animals, growing plants, and a food web of its own.">
+ <title>Terrarium — a little world, alive</title>
+ <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23111f20'/%3E%3Cpath d='M13 5h6v4h5v5h3v6H5v-6h3V9h5z' fill='%23c6e889'/%3E%3Cpath d='M14 19h4v8h-4z' fill='%238eaa80'/%3E%3C/svg%3E">
+ <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+ <div class="app">
+  <header class="header">
+   <div class="brand"><div class="brand-mark"><canvas data-sprite="tree" width="16" height="16"></canvas></div><div><h1>Terrarium<span class="brand-period">.</span></h1><p>ECOSYSTEM SANDBOX</p></div></div>
+   <div class="header-actions"><button id="help" class="quiet" title="Field guide" aria-label="Field guide"><i data-icon="book"></i><span class="desktop-label">Field guide</span></button><button id="dev-tweaks" class="quiet"><i data-icon="flask"></i><span>Dev<span class="desktop-label"> tweaks</span></span></button><button id="new-world" class="quiet" aria-label="New world"><i data-icon="shuffle"></i><span>New world</span></button></div>
+  </header>
+  <main class="workspace">
+   <section class="habitat" aria-label="Living ecosystem">
+    <div class="world-bar">
+     <div class="world-time"><span class="sun-icon" id="weather-icon"><i data-icon="sun"></i></span><div><strong id="day">Day 01</strong><span id="season">Spring · Clear</span></div></div>
+     <div class="playback" role="group" aria-label="Time controls"><button id="pause" class="pause" aria-label="Pause simulation" title="Pause (Space)"><i data-icon="pause"></i></button><div class="speed-buttons"><button data-speed="1" class="active" aria-pressed="true">1×</button><button data-speed="3" aria-pressed="false">3×</button><button data-speed="8" aria-pressed="false">8×</button></div></div>
+    </div>
+    <div class="world-view" id="world-view">
+     <canvas id="world" tabindex="0" aria-label="Interactive ecosystem. In Observe mode, drag to explore and tap to inspect. Use arrow keys to move the cursor, Enter to inspect or place, and plus or minus to zoom.">Your browser needs Canvas support to display the world.</canvas>
+     <div class="world-topline"><span class="world-name"><span class="live-dot"></span><span id="world-status">LIVING WOODLAND</span></span><button id="grid" class="map-button" aria-label="Show tile grid" aria-pressed="false" title="Show grid"><i data-icon="grid"></i></button></div>
+     <div id="player-hud" class="player-hud" hidden><span id="player-readout"></span><button id="center-player">Center</button></div>
+     <div id="selection-card" class="selection-card" hidden></div>
+     <div class="map-bottom"><span id="gesture-hint" class="gesture-hint"><i data-icon="hand"></i>Drag to explore · Tap to inspect</span><div class="zoom-controls"><button id="zoom-out" aria-label="Zoom out"><i data-icon="minus"></i></button><button id="fit" aria-label="Fit whole world" title="Fit whole world"><i data-icon="maximize"></i></button><button id="zoom-in" aria-label="Zoom in"><i data-icon="plus"></i></button></div></div>
+     <div id="toast" class="toast" role="status" hidden></div>
+    </div>
+    <button id="open-stats" class="population-strip" aria-label="Open ecosystem populations and trends">
+     <span class="population-label">POPULATION</span><span><canvas data-sprite="rabbit" width="16" height="16"></canvas><b id="count-rabbit">28</b><span class="species-label"> rabbits</span></span><span><canvas data-sprite="fox" width="16" height="16"></canvas><b id="count-fox">4</b><span class="species-label"> foxes</span></span><span><canvas data-sprite="bee" width="16" height="16"></canvas><b id="count-bee">12</b><span class="species-label"> bees</span></span><i data-icon="chart"></i>
+    </button>
+   </section>
+   <aside class="workbench" aria-label="World tools">
+    <div class="bench-heading"><p class="eyebrow">A SMALL INTERVENTION</p><h2>See what unfolds.</h2><p>Give nature a nudge. Let life do the rest.</p></div>
+    <div class="tool-tabs" role="group" aria-label="Tool categories"><button data-tab="observe" class="active" aria-pressed="true"><i data-icon="scan"></i>Observe</button><button data-tab="life" aria-pressed="false"><i data-icon="sprout"></i>Life</button><button data-tab="land" aria-pressed="false"><i data-icon="mountain"></i>Land</button></div>
+    <div class="tool-grid" id="tool-grid" aria-label="Add life"></div>
+    <div class="tool-info"><span id="tool-description">Select a species to add it to the world.</span><div id="brush-control" hidden><label for="brush">Brush</label><select id="brush"><option value="1">1 tile</option><option value="2">5 tiles</option><option value="3">13 tiles</option></select></div></div>
+    <div class="bench-actions"><button id="rain" class="rain-button"><i data-icon="rain"></i><span>Bring rain</span><span class="rain-duration">24s</span></button><button id="undo" class="undo-button" disabled title="Undo last intervention (Ctrl+Z)"><i data-icon="undo"></i><span>Undo</span></button></div>
+    <section class="field-notes"><div class="section-heading"><span class="eyebrow">FIELD NOTES</span><span class="note-day" id="note-day">DAY 01</span></div><div id="notes" class="notes"></div><button class="text-button" id="ecosystem-details">View ecosystem <i data-icon="chart"></i></button></section>
+    <div class="bench-footer"><span class="seed-label">SEED <b id="seed-label">FERN-204</b></span><span>16 × 16 PIXEL WORLD</span></div>
+   </aside>
+  </main>
+  <footer class="footer"><span><span class="live-dot"></span><span id="footer-status">Every creature has a part to play.</span></span><span>Made for a little curiosity.</span></footer>
+ </div>
+ <dialog id="dialog" aria-labelledby="dialog-title"><div class="dialog-shell"><div class="dialog-heading"><div><p class="eyebrow" id="dialog-eyebrow">TERRARIUM</p><h2 id="dialog-title">Field guide</h2></div><button id="close-dialog" class="icon-button" aria-label="Close dialog"><i data-icon="close"></i></button></div><div id="dialog-body"></div></div></dialog>
+ <div id="announcer" class="sr-only" role="status" aria-live="polite"></div>
+ <script type="module" src="./app.mjs"></script>
+</body>
+</html>
